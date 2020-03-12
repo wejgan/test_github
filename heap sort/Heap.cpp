@@ -19,8 +19,8 @@ CHeap::CHeap(const vector<int> &cVec)
 }
 
 
-/*  ¹æ¶¨: µ±Ç°½ÚµãµÄId£ºn£¬Æä×ó½ÚµãID£º(n+1)*2-1, ÓÒ½ÚµãID£º(n+1)*2 */
-/* ¶ÑµÄ´óĞ¡Îªn, Ò¶×Ó½ÚµãµÄIDÎª£ºn/2, n/2+1, ..., n-1 */
+/*  è§„å®š: å½“å‰èŠ‚ç‚¹çš„Idï¼šnï¼Œå…¶å·¦èŠ‚ç‚¹IDï¼š(n+1)*2-1, å³èŠ‚ç‚¹IDï¼š(n+1)*2 */
+/* å †çš„å¤§å°ä¸ºn, å¶å­èŠ‚ç‚¹çš„IDä¸ºï¼šn/2, n/2+1, ..., n-1 */
 void CHeap::sift_down(int nPos)
 {
     if (m_dwSize == 0 || m_cVec.size() == 0)
@@ -98,7 +98,7 @@ int CHeap::top() const
         return m_cVec[0];
     return -1;
 }
-
+#if 0
 void CHeap::pop()
 {
     if (m_dwSize <= 0)
@@ -113,3 +113,39 @@ int CHeap::size() const
 {
     return m_dwSize;
 }
+#endif
+
+
+#if 0
+void CHeap::pop()
+{
+    if (m_dwSize <= 0)
+        return;
+
+    std::swap(m_cVec[0], m_cVec[m_dwSize - 1]);
+    m_dwSize--;
+    sift_down(0);
+}
+
+int CHeap::size() const
+{
+    return m_dwSize;
+}
+#endif
+
+#if 0
+void CHeap::pop()
+{
+    if (m_dwSize <= 0)
+        return;
+
+    std::swap(m_cVec[0], m_cVec[m_dwSize - 1]);
+    m_dwSize--;
+    sift_down(0);
+}
+
+int CHeap::size() const
+{
+    return m_dwSize;
+}
+#endif
