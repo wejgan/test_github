@@ -1,0 +1,100 @@
+192.168.3.101
+
+Pmp::ConnectionManager
+pme::ConnectionManager
+
+ProximityDetectSink
+
+
+g_atomic_int_set
+g_atomic_int_get
+
+/* 这个不太清楚函数调用堆栈 */
+onCaptureSinkCreate
+
+void EngineImpl::dumpPipeline( const char* file )
+bool EngineImpl::loadTestPlugin(const std::string& pluginName)
+
+
+Engine::SetRenderSink() for rendering self- view
+Session::setRenderSink()for rendering a received media stream
+
+
+日志相关：
+extern CSFLogger* gCPVELogger;
+extern void InitializeCPVELogger();
+extern void InitializePmeLogger();
+extern void InitializeMariLogger();
+extern void UninitializeCPVELogger();
+extern bool PmeLoggerInitialized();
+void setCPVELoggerLevel(CSF::media::rtp::LogLevel level);
+void setPMELoggerLevel(CSF::media::rtp::LogLevel level);
+
+
+grabber是和采集有关的，Engine中会调用Grabberlink中的函数，实现相应的设置功能，
+比如设置相机方向，设置AEC，AGC等
+
+device和GrabberFactory相关
+
+为啥SessionGroupImpl中，有好多protect的方法，是Engine中的public的方法，这不就重复了吗？？？
+
+
+bool
+SessionGroupImpl::sendKeyFrames( const SessionType& sessionType, CPVEError* error )
+rtcp相关的有：开启关闭 Fir, Tmmbr
+
+
+
+/* session group 中很大一部分是对bandwidth的控制，也就是网络带宽的设置 */
+bool setSenderSideBandwidthAdaptationPolicy (SenderSideBandwidthAdaptationPolicy policy, CPVEError *error = NULL);
+
+
+
+//Enable or disable MARI (Media Adaptation and Resilience Implementation)
+void setMariEnabled(bool enabled, CPVEError* error = NULL) = 0‘
+
+ struct MariParams
+    {
+        unsigned int rtpExtId = 14;
+        unsigned int fecPayloadNum = 111;
+        unsigned int maxN = 32;
+        unsigned int m = 8;
+        unsigned int maxEsel = 1420;
+        bool isMultiSsrc = false;
+        bool isEncryptedFECSupport = false;
+    };
+
+
+
+MediaSessionDescriptor中有IP和端口，CodecList等等
+Session的MediaSessionDescriptor是在SessionGroup中的MediaEndpoint中的
+Session中有CPVERenderer，用来SetRenderSink的
+
+
+  /**
+     * Policy type of SCR (Sub-session Channel Request) message. 
+     * Currently defined policies are as (active-speaker) and rs (receiver-selected)
+     */
+    enum SCRPolicyType
+    {
+        SCRPolicyType_NonePolicy = 0,
+        SCRPolicyType_ActiveSpeaker,
+        SCRPolicyType_ReceiverSelected
+    };
+
+Another important member variable of the MediaSessionDescriptor class is the hold mode. 
+The hold mode controls when to start and stop transmitting and receiving. The available hold 
+modes are: HOLD_TODO_MODE_INACTIVE, HOLD_TODO_MODE_SEND_ONLY, HOLD_TODO_MODE_RECEIVE_ONLY, 
+and HOLD_TODO_MODE_SEND_RECEIVE.
+
+
+
+
+
+
+
+
+
+
+
+SessionGroup中关于Bandwidth的策略，不是太清楚，需要安排给我讲解一下！！！
